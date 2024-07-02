@@ -1,6 +1,8 @@
 package com.project.dashboard.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.project.dashboard.config.responseStructre;
@@ -20,18 +22,19 @@ public class DataService {
         this.dataRepository = dataRepository;
     }
 
-    public responseStructre<Data> saveData(Data newData) {
-        responseStructre<Data> response = new responseStructre<>();
+    public ResponseEntity<responseStructre<List<Data>>> saveData(List<Data> newDataList) {
+        responseStructre<List<Data>> response = new responseStructre<>();
         try {
-            response.setData(dataRepository.save(newData));
-            response.setStatusCode(200);
+            List<Data> savedDataList = dataRepository.saveAll(newDataList);
+            response.setData(savedDataList);
+            response.setStatusCode(HttpStatus.OK.value());
             response.setMessage("Data saved successfully.");
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
-            // Handle any exceptions
-            response.setStatusCode(500);
+            response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
             response.setMessage("Internal Server Error: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
-        return response;
     }
 
     public responseStructre<Data> updateData(Long id, Data newData) {

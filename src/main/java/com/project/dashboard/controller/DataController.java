@@ -25,10 +25,9 @@ public class DataController {
     }
 
     // Endpoint to create a new data record
-    @PostMapping
-    public ResponseEntity<responseStructre<Data>> createData(@RequestBody Data data) {
-        responseStructre<Data> newData = dataService.saveData(data);
-        return new ResponseEntity<>(newData, HttpStatus.CREATED);
+    @PostMapping("/data")
+    public ResponseEntity<responseStructre<List<Data>>> saveData(@RequestBody List<Data> newDataList) {
+        return dataService.saveData(newDataList);
     }
 
     // Endpoint to update an existing data record

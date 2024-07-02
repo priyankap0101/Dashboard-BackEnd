@@ -31,8 +31,8 @@ public class Data {
     private String topic;
     private String insight;
     private String url;
-    private double added;
-    private double published;
+    private String added; // Changed to String
+    private String published; // Changed to String
     private int relevance;
     private String pestle;
     private String source;
@@ -43,8 +43,8 @@ public class Data {
     private String country;
     
    
-	public Data(Long id, int year, int intensity, String topic, String insight, String url, double added,
-			double published, int relevance, String pestle, String source, String region, String title, int likelihood,
+	public Data(Long id, int year, int intensity, String topic, String insight, String url, String added,
+			String published, int relevance, String pestle, String source, String region, String title, int likelihood,
 			String country, String city, String sector, String swot) {
 		super();
 		this.id = id;
