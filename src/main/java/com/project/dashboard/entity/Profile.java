@@ -15,9 +15,7 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
-
 @RequiredArgsConstructor
-
 @ToString
 public class Profile {
 	
@@ -32,6 +30,7 @@ public class Profile {
     private String city;
     private String state;
     private String zip;
+    private String Password;
 
     // Getters and Setters
 }

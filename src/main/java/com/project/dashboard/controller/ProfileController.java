@@ -19,7 +19,7 @@ public class ProfileController {
     private ProfileService profileService;
 
     // Endpoint to create a new data record
-    @PostMapping("/profile")
+    @PostMapping
     public Profile saveEntity(@RequestBody Profile profile) {
         return profileService.saveProfile(profile);
     }

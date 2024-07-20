@@ -59,6 +59,5 @@ public class DataController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    // You can add more endpoints as needed
 }
 
