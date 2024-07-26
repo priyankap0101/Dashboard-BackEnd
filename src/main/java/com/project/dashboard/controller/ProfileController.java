@@ -77,5 +77,13 @@ public class ProfileController {
         List<Profile> allProfiles = profileService.getAllProfile();
         return new ResponseEntity<>(allProfiles, HttpStatus.OK);
     }
+    @GetMapping("/search")
+    public ResponseEntity<?> searchProfiles(@RequestParam String query) {
+        List<Profile> profiles = profileService.searchProfiles(query);
+        if (profiles.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Data not found");
+        }
+        return new ResponseEntity<>(profiles, HttpStatus.OK);
+    }
   
 }

@@ -37,4 +37,8 @@ public class ProfileService {
     public List<Profile> getAllProfile() {
         return profileRepository.findAll();
     }
+    public List<Profile> searchProfiles(String query) {
+        return profileRepository.findByfirstNameContainingIgnoreCase(query);
+    }
+
 }
