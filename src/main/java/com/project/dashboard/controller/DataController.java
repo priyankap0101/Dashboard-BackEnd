@@ -58,6 +58,21 @@ public class DataController {
         dataService.deleteDataById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    
+    @GetMapping("/city")
+    public List<String> getAllCities() {
+        return dataService.getAllCities();
+    }
+
+    @GetMapping("/swot")
+    public List<String> getAllSwots() {
+        return dataService.getAllSwots();
+    }
+
+    @GetMapping("/pestle")
+    public List<String> getAllPestles() {
+        return dataService.getAllPestles();
+    }
 
 }
 

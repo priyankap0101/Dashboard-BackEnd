@@ -40,5 +40,6 @@ public class ProfileService {
     public List<Profile> searchProfiles(String query) {
         return profileRepository.findByfirstNameContainingIgnoreCase(query);
     }
+  
 
 }

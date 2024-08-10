@@ -11,6 +11,7 @@ import com.project.dashboard.repositories.DataRepo;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class DataService {
@@ -76,5 +77,28 @@ public class DataService {
     // Method to delete a data record by its ID
     public void deleteDataById(Long id) {
         dataRepository.deleteById(id);
+    }
+    public List<String> getAllCities() {
+        return dataRepository.findAll()
+                             .stream()
+                             .map(Data::getCity)
+                             .distinct()
+                             .collect(Collectors.toList());
+    }
+
+    public List<String> getAllSwots() {
+        return dataRepository.findAll()
+                             .stream()
+                             .map(Data::getSwot)
+                             .distinct()
+                             .collect(Collectors.toList());
+    }
+
+    public List<String> getAllPestles() {
+        return dataRepository.findAll()
+                             .stream()
+                             .map(Data::getPestle)
+                             .distinct()
+                             .collect(Collectors.toList());
     }
 }

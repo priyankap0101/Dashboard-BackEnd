@@ -1,6 +1,5 @@
 package com.project.dashboard.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -8,8 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
@@ -18,7 +16,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        // Using NoOpPasswordEncoder to bypass hashing (not recommended for production)
+        return NoOpPasswordEncoder.getInstance();
     }
 
     @Override
@@ -27,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf().disable()
             .authorizeRequests()
             .antMatchers("/api/profile/**").permitAll()
-            .antMatchers("/api/data/**").permitAll() // Permit access to /api/data endpoints
+            .antMatchers("/api/data/**").permitAll()
             .anyRequest().authenticated()
             .and()
             .formLogin().disable()
@@ -36,15 +35,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring().antMatchers("/resources/**"); // Ignore static resources
+        web.ignoring().antMatchers("/resources/**");
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // Configure authentication (e.g., in-memory, JDBC, LDAP, etc.)
         auth.inMemoryAuthentication()
-            .withUser("user").password(passwordEncoder().encode("password")).roles("USER")
+            .withUser("user").password("password").roles("USER")
             .and()
-            .withUser("admin").password(passwordEncoder().encode("admin")).roles("USER", "ADMIN");
+            .withUser("admin").password("admin").roles("USER", "ADMIN");
     }
 }
